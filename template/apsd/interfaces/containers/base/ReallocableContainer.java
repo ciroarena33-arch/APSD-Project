@@ -20,7 +20,7 @@ public interface ReallocableContainer<T extends ReallocableContainer<T>> extends
   
   // Grow
   default void Grow() {
-	  Grow(Natural.ZERO);
+	  Grow(Natural.ONE);
   };
   
   // Grow
@@ -31,11 +31,9 @@ public interface ReallocableContainer<T extends ReallocableContainer<T>> extends
   
   // Shrink
   default void Shrink() {  
-	  Realloc(Natural.Of((long) (Capacity().ToLong()/SHRINK_FACTOR)));
+	  if((long) (Capacity().ToLong()/SHRINK_FACTOR)<Size().ToLong())	Realloc(Natural.Of((long) (Capacity().ToLong()/SHRINK_FACTOR)));
   };
   
- 
-
   /* ************************************************************************ */
   /* Override specific member functions from Container                        */
   /* ************************************************************************ */

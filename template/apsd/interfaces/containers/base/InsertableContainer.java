@@ -23,4 +23,5 @@ public interface InsertableContainer<T extends InsertableContainer<T, Data>, Dat
 		if(con==null) return true;
 		return con.FoldForward((dat, acc) -> Insert(dat) || acc, false);
 	}
+	
 }
