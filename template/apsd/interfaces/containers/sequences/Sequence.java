@@ -40,7 +40,7 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
 	
   // IsInBound
 	default boolean IsInBound(Natural num) {
-		return (num==null) && (num.ToLong()<Size().ToLong());
+		return (num!=null) && (num.ToLong()<Size().ToLong());
 	};
 	
   // ExcIfOutOfBound
