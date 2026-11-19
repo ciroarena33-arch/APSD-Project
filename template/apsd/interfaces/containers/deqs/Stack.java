@@ -47,7 +47,7 @@ public interface Stack<T extends Stack<T, Data>, Data> extends ClearableContaine
   // Clear
 	@Override
 	default void Clear() {
-		while(IsEmpty()) {
+		while(!IsEmpty()) {
 			Pop();
 		}
 	}
@@ -59,7 +59,7 @@ public interface Stack<T extends Stack<T, Data>, Data> extends ClearableContaine
   // Insert
 	@Override
 	default boolean Insert(Data dat) {
-		if(dat==null) return false;
+		if(dat==null) {return false;}
 		Push(dat);
 		return true;
 	}

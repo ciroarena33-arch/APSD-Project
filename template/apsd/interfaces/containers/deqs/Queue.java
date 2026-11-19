@@ -36,7 +36,7 @@ public interface Queue<T extends Queue<T,Data>, Data> extends ClearableContainer
 
   // Clear
 	default void Clear() {
-		while(IsEmpty()) {
+		while(!IsEmpty()) {
 			Dequeue();
 		}
 	}
@@ -48,7 +48,7 @@ public interface Queue<T extends Queue<T,Data>, Data> extends ClearableContainer
   // Insert
 	@Override
 	default boolean Insert(Data dat) {
-		if(dat==null)return false;
+		if(dat==null) {return false;}
 		Enqueue(dat);
 		return true;
 	}

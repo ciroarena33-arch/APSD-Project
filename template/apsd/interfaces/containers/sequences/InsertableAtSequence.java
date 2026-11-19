@@ -17,7 +17,7 @@ public interface InsertableAtSequence<T extends InsertableAtSequence<T, Data>, D
 	
   // InsertFirst
 	default void InsertFirst(Data dat) {
-		InsertAt(dat,Natural.ONE);
+		InsertAt(dat,Natural.ZERO);
 	};
 	
   // InsertLast

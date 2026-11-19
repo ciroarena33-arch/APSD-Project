@@ -20,18 +20,18 @@ public interface ReallocableContainer<T extends ReallocableContainer<T>> extends
   
   // Grow
   default void Grow() {
-	  Grow(Natural.ONE);
+	  Grow(Natural.ZERO);
   };
   
   // Grow
   default void Grow(Natural dim) {
-	  if (dim==null) throw new NullPointerException("Natural cannot be null");
+	  if (dim==null) {throw new NullPointerException("Natural cannot be null");}
 	  Realloc(Natural.Of(((long) ((Size().ToLong()+dim.ToLong())*GROW_FACTOR))));
   };
   
   // Shrink
   default void Shrink() {  
-	  if((long) (Capacity().ToLong()/SHRINK_FACTOR)<Size().ToLong())	Realloc(Natural.Of((long) (Capacity().ToLong()/SHRINK_FACTOR)));
+	  if((long) (Capacity().ToLong()/SHRINK_FACTOR)<Size().ToLong())	{Realloc(Natural.Of((long) (Capacity().ToLong()/SHRINK_FACTOR)));}
   };
   
   /* ************************************************************************ */

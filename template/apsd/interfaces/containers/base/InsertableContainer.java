@@ -14,13 +14,13 @@ public interface InsertableContainer<T extends InsertableContainer<T, Data>, Dat
 	
   // AllInserted
 	default boolean AllInserted(TraversableContainer<?, Data> con) {
-		if(con==null) return true;
+		if(con==null) {return true;}
 		return con.FoldForward((dat, acc) -> Insert(dat) && acc, true);
 	}
 	
   // SomeInserted
 	default boolean SomeInserted(TraversableContainer<?, Data> con) {
-		if(con==null) return true;
+		if(con==null) {return true;}
 		return con.FoldForward((dat, acc) -> Insert(dat) || acc, false);
 	}
 	

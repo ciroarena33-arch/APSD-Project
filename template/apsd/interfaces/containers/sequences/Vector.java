@@ -13,11 +13,11 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 
   // ShiftLeft
 	default void ShiftLeft(Natural pos) {
-		
+		ShiftLeft(pos, Size().Decrement(), Natural.ONE);
 	}
 	
-	default void ShiftLeft(Natural pos,Natural num) {
-		
+	default void ShiftLeft(Natural pos, Natural num) {
+		ShiftLeft(pos, Size().Decrement(), num);
 	}
 
 	default void ShiftLeft(Natural srt, Natural end, Natural num) {
@@ -40,19 +40,46 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 	}
 	
   // ShiftFirstLeft
+	default void ShiftFirstLeft() { ShiftLeft(Natural.ZERO); }
 	
 	
   // ShiftLastLeft
-	
+	default void ShiftLastLeft() { ShiftLeft(IsEmpty() ? Natural.ZERO : Size().Decrement()); }
 	
   // ShiftRight
+	default void ShiftRight(Natural pos) {
+		ShiftRight(pos, Size().Decrement(), Natural.ONE);
+	}
 	
+	default void ShiftRight(Natural pos, Natural num) {
+		ShiftRight(pos, Size().Decrement(), num);
+	}	
+	
+	default void ShiftRight(Natural srt, Natural end, Natural num) {
+		if(srt==null||end==null||num==null) throw new NullPointerException("Natural cannot be null");
+		long stidx = srt.ToLong();
+		long enidx = end.ToLong();
+		if(stidx <= enidx && enidx <= Size().ToLong()) {
+			long len = num.ToLong();
+			long wrt = enidx + len;
+			if(wrt>Size().ToLong()) { wrt=Size().Decrement().ToLong(); }
+			long ldr = wrt - len;
+			for(; ldr > stidx; ldr--, wrt--) {
+				Natural natldr=Natural.Of(ldr);
+				SetAt(GetAt(natldr), Natural.Of(wrt));
+			}
+			for(; wrt > stidx; wrt--) {
+				SetAt(null, Natural.Of(wrt));
+			}
+		}
+	}
 	
   // ShiftFirstRight
-	
+	default void ShiftFirstRight() { ShiftRight(Natural.ZERO); }
 	
   // ShiftLastRight
-	
+	default void ShiftLastRight() { ShiftRight(IsEmpty() ? Natural.ZERO : Size().Decrement()); }
+
 
   /* ************************************************************************ */
   /* Override specific member functions from Container                        */
@@ -61,7 +88,7 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
   // Size
 	@Override
 	default Natural Size() {
-		
+		return Capacity();
 	}
 
   /* ************************************************************************ */
@@ -69,5 +96,21 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
   /* ************************************************************************ */
 
   // SubSequence
+	@Override
+	@SuppressWarnings("unchecked")
+	default T SubSequence(Natural from, Natural to) {
+		long start=ExcIfOutOfBound(from);
+		long end=ExcIfOutOfBound(to);
+		T sub=Empty();
+		for(long i=start; i<end; i++) {
+			Data dat=GetAt(Natural.Of(i));
+			if(sub instanceof InsertableAtSequence) {
+				((InsertableAtSequence<T, Data>) sub).InsertLast(dat); 
+			}
+			else {
+				((MutableSequence<T, Data>) sub).SetAt(dat, Natural.Of(i));
+			}
+		}
+	}
 
 }

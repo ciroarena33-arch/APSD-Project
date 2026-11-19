@@ -22,24 +22,24 @@ public interface RemovableAtSequence<T extends RemovableAtSequence<T, Data>, Dat
 	
   // RemoveFirst
 	default void RemoveFirst() {
-		RemoveAt(Natural.ONE);
+		RemoveAt(Natural.ZERO);
 	}
 	
   // FirstNRemove
 	default Data FirstNRemove() {
-		ExcIfOutOfBound(Natural.ONE);
-		return AtNRemove(Natural.ONE);
+		ExcIfOutOfBound(Natural.ZERO);
+		return AtNRemove(Natural.ZERO);
 	}
 	
   // RemoveLast
 	default void RemoveLast() {
-		RemoveAt(Size());
+		RemoveAt(Size().Decrement());
 	}
 	
   // LastNRemove
 	default Data LastNRemove() {
-		ExcIfOutOfBound(Size());
-		return AtNRemove(Size());
+		ExcIfOutOfBound(Size().Decrement());
+		return AtNRemove(Size().Decrement());
 	}
 
   /* ************************************************************************ */
@@ -49,7 +49,7 @@ public interface RemovableAtSequence<T extends RemovableAtSequence<T, Data>, Dat
   // Remove
 	@Override
 	default boolean Remove(Data dat) {
-		if(dat==null)return true;
+		if(dat==null) {return true;}
 		Natural pos= Search(dat);
 		RemoveAt(pos);
 		return true;

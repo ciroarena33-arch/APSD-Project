@@ -24,15 +24,15 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
 	
   // GetFirst
 	default Data GetFirst() {
-		return GetAt(Natural.ONE);
+		return GetAt(Natural.ZERO);
 	}
   // GetLast
 	default Data GetLast() {
-		return GetAt(Size());
+		return GetAt(Size().Decrement());
 	}
   // Search
 	default Natural Search(Data dat) {
-		for(int i=1; i<=Size().ToLong(); i++) {
+		for(int i=0; i<Size().ToLong(); i++) {
 			if(GetAt(Natural.Of(i))==dat) return Natural.Of(i);
 		}
 		throw new IllegalArgumentException("Data is not valid");
@@ -40,7 +40,7 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
 	
   // IsInBound
 	default boolean IsInBound(Natural num) {
-		return (num!=null) && (num.ToLong()<Size().ToLong());
+		return (num!=null) && (num.ToLong()<Size().Decrement().ToLong());
 	};
 	
   // ExcIfOutOfBound

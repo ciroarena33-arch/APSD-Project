@@ -14,13 +14,13 @@ public interface RemovableContainer<T extends RemovableContainer<T, Data>, Data>
 
   // AllRemoved
 	default boolean AllRemoved(TraversableContainer<?, Data> con) {
-		if(con==null) return true;
+		if(con==null) {return true;}
 		return con.FoldForward((dat, acc) -> Remove(dat) && acc, true);
 	}
 		
   // SomeRemoved
 	default boolean SomeRemoved(TraversableContainer<?, Data> con) {
-		if(con==null) return true;
+		if(con==null) {return true;}
 		return con.FoldForward((dat, acc) -> Remove(dat) || acc, false);
 	}
 }
