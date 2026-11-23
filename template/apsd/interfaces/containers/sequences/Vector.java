@@ -1,6 +1,6 @@
 package apsd.interfaces.containers.sequences;
 
-import apsd.classes.utilities.Natural;
+import apsd.classes.utilities.Natural; 
 import apsd.interfaces.containers.base.ReallocableContainer;
 
 public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableContainer<T>, MutableSequence<T, Data> {
@@ -105,12 +105,13 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 		for(long i=start; i<end; i++) {
 			Data dat=GetAt(Natural.Of(i));
 			if(sub instanceof InsertableAtSequence) {
-				((InsertableAtSequence<T, Data>) sub).InsertLast(dat); 
+				((InsertableAtSequence<?, Data>) sub).InsertLast(dat); 
 			}
 			else {
-				((MutableSequence<T, Data>) sub).SetAt(dat, Natural.Of(i));
+				((MutableSequence<?, Data>) sub).SetAt(dat, Natural.Of(i));
 			}
 		}
+		return sub;
 	}
 
 }

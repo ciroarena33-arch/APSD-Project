@@ -1,8 +1,5 @@
 package apsd.interfaces.containers.base;
 
-import apsd.interfaces.containers.iterators.BackwardIterator;
-import apsd.interfaces.containers.iterators.ForwardIterator;
-
 import apsd.interfaces.containers.iterators.MutableBackwardIterator;
 import apsd.interfaces.containers.iterators.MutableForwardIterator;
 
