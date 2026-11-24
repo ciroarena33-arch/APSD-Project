@@ -3,3 +3,5 @@
 /DynLinearVectorBase.class
 /LinearVectorBase.class
 /VectorBase.class
+/VectorBase$VectorFIterator.class
+/VectorBase$VectorBIterator.class
