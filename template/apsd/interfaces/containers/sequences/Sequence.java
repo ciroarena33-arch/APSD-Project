@@ -24,28 +24,31 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
 	
   // GetFirst
 	default Data GetFirst() {
+		if(IsEmpty()) { throw new IndexOutOfBoundsException("Sequence is empty");}
 		return GetAt(Natural.ZERO);
 	}
   // GetLast
 	default Data GetLast() {
+		if(IsEmpty()) { throw new IndexOutOfBoundsException("Sequence is empty");}
 		return GetAt(Size().Decrement());
 	}
   // Search
 	default Natural Search(Data dat) {
 		for(int i=0; i<Size().ToLong(); i++) {
-			if(GetAt(Natural.Of(i))==dat) return Natural.Of(i);
+			if(GetAt(Natural.Of(i)).equals(dat)) return Natural.Of(i);
 		}
-		throw new IllegalArgumentException("Data is not valid");
+		return null;
 	}
 	
   // IsInBound
 	default boolean IsInBound(Natural num) {
-		return (num!=null) && (num.ToLong()<Size().Decrement().ToLong());
+		return (num!=null) && (num.ToLong()<Size().ToLong());
 	};
 	
   // ExcIfOutOfBound
 	default long ExcIfOutOfBound(Natural num) {
-		if(!IsInBound(num)||num==null)throw new IllegalArgumentException("Position not valid");
+		if(num==null)throw new NullPointerException("Natural cannot be null");
+		if(!IsInBound(num))throw new IndexOutOfBoundsException("Position not valid");
 		return num.ToLong();
 	};
 	
