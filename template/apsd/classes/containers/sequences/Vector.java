@@ -33,6 +33,6 @@ public class Vector<Data> extends LinearVectorBase<Vector<Data>, Data>{
 
   // Empty
 	@Override
-	public Vector<Data> Empty() { return new Vector<>(); }
+	public Vector<Data> Empty() { return new Vector<Data>(); }
 
 }

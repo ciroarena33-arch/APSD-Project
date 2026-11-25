@@ -32,7 +32,7 @@ public class DynVector<Data> extends DynLinearVectorBase<DynVector<Data>, Data>{
 
   // Empty
 	public DynVector<Data> Empty(){
-		return new DynVector();
+		return new DynVector<Data>();
 	}
 	
 
