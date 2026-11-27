@@ -33,12 +33,13 @@ public interface RemovableAtSequence<T extends RemovableAtSequence<T, Data>, Dat
 	
   // RemoveLast
 	default void RemoveLast() {
+		if (IsEmpty()) throw new IndexOutOfBoundsException("Sequence is empty");
 		RemoveAt(Size().Decrement());
 	}
 	
   // LastNRemove
 	default Data LastNRemove() {
-		ExcIfOutOfBound(Size().Decrement());
+		if (IsEmpty()) throw new IndexOutOfBoundsException("Sequence is empty");
 		return AtNRemove(Size().Decrement());
 	}
 
@@ -49,8 +50,8 @@ public interface RemovableAtSequence<T extends RemovableAtSequence<T, Data>, Dat
   // Remove
 	@Override
 	default boolean Remove(Data dat) {
-		if(dat==null) {return true;}
 		Natural pos= Search(dat);
+		if(pos==null) {return false;}
 		RemoveAt(pos);
 		return true;
 	}

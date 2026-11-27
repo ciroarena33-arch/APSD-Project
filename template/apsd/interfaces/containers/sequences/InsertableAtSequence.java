@@ -31,7 +31,6 @@ public interface InsertableAtSequence<T extends InsertableAtSequence<T, Data>, D
 
   // Insert
 	default boolean Insert(Data dat) {
-		if(dat==null)return false;
 		InsertLast(dat);
 		return true;
 	}
@@ -42,12 +41,15 @@ public interface InsertableAtSequence<T extends InsertableAtSequence<T, Data>, D
 
   // SubSequence
 	default T SubSequence(Natural from, Natural to) {
-		long start= ExcIfOutOfBound(from);
-		long end= ExcIfOutOfBound(to);
-		T sub=Empty();
-		for(;start<=end;start++) {
-			sub.InsertLast(GetAt(Natural.Of(start)));
-		}
-		return sub;		
+		if (from == null || to == null) throw new NullPointerException("Natural cannot be null!");
+        T sub = Empty();
+        if (IsInBound(from) && IsInBound(to) && from.ToLong() <= to.ToLong()) {
+            long start = from.ToLong();
+            long end = to.ToLong();
+            for (long i = start; i <= end; i++) {
+                sub.InsertLast(GetAt(Natural.Of(i)));
+            }
+        }
+        return sub;	
 	}
 }

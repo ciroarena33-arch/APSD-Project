@@ -31,10 +31,10 @@ abstract public class VectorBase<T extends VectorBase<T, Data>, Data> implements
 	}
   // VectorBase(TraversableContainer<?, Data> con)
 	public VectorBase(TraversableContainer<?, Data> con) {
-		if(con==null) { throw new NullPointerException("Natural cannot be null");}
+		if(con==null) { throw new NullPointerException("Traversable container cannot be null");}
 		ArrayAlloc(con.Size());
 		final MutableNatural idx = new MutableNatural();
-		con.TraverseForward(dat -> {SetAt(dat, idx.GetNIncrement()); return false;});
+		con.TraverseForward(dat -> {arr[(int) idx.GetNIncrement().ToLong()]=dat; return false;});
 	}
 
   /* ************************************************************************ */

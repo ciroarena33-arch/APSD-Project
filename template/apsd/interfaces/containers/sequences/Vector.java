@@ -13,11 +13,11 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 
   // ShiftLeft
 	default void ShiftLeft(Natural pos) {
-		ShiftLeft(pos, Size().Decrement(), Natural.ONE);
+		ShiftLeft(pos, Size(), Natural.ONE);
 	}
 	
 	default void ShiftLeft(Natural pos, Natural num) {
-		ShiftLeft(pos, Size().Decrement(), num);
+		ShiftLeft(pos, Size(), num);
 	}
 
 	default void ShiftLeft(Natural srt, Natural end, Natural num) {
@@ -48,11 +48,11 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 	
   // ShiftRight
 	default void ShiftRight(Natural pos) {
-		ShiftRight(pos, Size().Decrement(), Natural.ONE);
+		ShiftRight(pos, Size(), Natural.ONE);
 	}
 	
 	default void ShiftRight(Natural pos, Natural num) {
-		ShiftRight(pos, Size().Decrement(), num);
+		ShiftRight(pos, Size(), num);
 	}	
 	
 	default void ShiftRight(Natural srt, Natural end, Natural num) {
@@ -97,21 +97,19 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 
   // SubSequence
 	@Override
-	@SuppressWarnings("unchecked")
 	default T SubSequence(Natural from, Natural to) {
-		long start=ExcIfOutOfBound(from);
-		long end=ExcIfOutOfBound(to);
-		T sub=Empty();
-		for(long i=start; i<end; i++) {
-			Data dat=GetAt(Natural.Of(i));
-			if(sub instanceof InsertableAtSequence) {
-				((InsertableAtSequence<?, Data>) sub).InsertLast(dat); 
-			}
-			else {
-				((MutableSequence<?, Data>) sub).SetAt(dat, Natural.Of(i));
-			}
-		}
-		return sub;
+		if (from == null || to == null) throw new NullPointerException("Natural cannot be null!");
+        T sub = Empty();
+        if (IsInBound(from) && IsInBound(to) && from.ToLong() <= to.ToLong()) {
+            long start = from.ToLong();
+            long end = to.ToLong();
+            sub.Realloc(Natural.Of(end - start + 1));
+            for (long i = start; i <= end; i++) {
+                sub.SetAt(GetAt(Natural.Of(i)), Natural.Of(i - start));
+            }
+        }
+        return sub;
 	}
+		
 
 }

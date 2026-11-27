@@ -20,7 +20,7 @@ public interface RemovableContainer<T extends RemovableContainer<T, Data>, Data>
 		
   // SomeRemoved
 	default boolean SomeRemoved(TraversableContainer<?, Data> con) {
-		if(con==null) {return true;}
+		if(con==null) {return false;}
 		return con.FoldForward((dat, acc) -> Remove(dat) || acc, false);
 	}
 }

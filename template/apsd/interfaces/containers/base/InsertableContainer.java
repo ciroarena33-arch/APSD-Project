@@ -20,7 +20,7 @@ public interface InsertableContainer<T extends InsertableContainer<T, Data>, Dat
 	
   // SomeInserted
 	default boolean SomeInserted(TraversableContainer<?, Data> con) {
-		if(con==null) {return true;}
+		if(con==null) {return false;}
 		return con.FoldForward((dat, acc) -> Insert(dat) || acc, false);
 	}
 	

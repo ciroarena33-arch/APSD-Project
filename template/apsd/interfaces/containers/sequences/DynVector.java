@@ -14,6 +14,8 @@ public interface DynVector<T extends DynVector<T, Data>, Data> extends Resizable
 
   // InsertAt
 	default void InsertAt(Data dat, Natural pos) {
+		if(pos==null) throw new NullPointerException("Natural cannot be null");
+		if(pos.ToLong()>Size().ToLong()) throw new IndexOutOfBoundsException("Index cannot be null");
 		Expand();
 		ShiftRight(pos);
 		SetAt(dat,pos);

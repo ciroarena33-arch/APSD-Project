@@ -23,7 +23,7 @@ public interface BackwardIterator<Data> extends Iterator<Data>{
 	
 	default void Prev(long num) {
 		if(num<0)throw new IllegalArgumentException("The Natural cannot be negative");
-		for(int i=0; i<num && IsValid(); i++) {
+		for(long i=0; i<num && IsValid(); i++) {
 			Prev();
 		}
 	}

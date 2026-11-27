@@ -23,7 +23,7 @@ public interface ForwardIterator<Data> extends Iterator<Data>{
 	
 	default void Next(long num) {
 		if(num<0)throw new IllegalArgumentException("The Natural cannot be negative");
-		for(int i=0; i<num && IsValid(); i++) {
+		for(long i=0; i<num && IsValid(); i++) {
 			Next();
 		}
 	}

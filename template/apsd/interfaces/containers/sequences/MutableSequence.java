@@ -31,7 +31,7 @@ public interface MutableSequence<T extends MutableSequence<T, Data>, Data> exten
 	
   // SetFirst
 	default void SetFirst(Data dat) {
-		SetAt(dat, Natural.ONE);
+		SetAt(dat, Natural.ZERO);
 	}
 	
   // GetNSetFirst
@@ -43,7 +43,7 @@ public interface MutableSequence<T extends MutableSequence<T, Data>, Data> exten
 	
   // SetLast
 	default void SetLast(Data dat) {
-		SetAt(dat, Size());
+		SetAt(dat, Size().Decrement());
 	}
 	
   // GetNSetLast
@@ -55,7 +55,9 @@ public interface MutableSequence<T extends MutableSequence<T, Data>, Data> exten
 	
   // Swap
 	default void Swap(Natural fst, Natural snd) {
-		if(fst.ToLong()==snd.ToLong())return;
+		long idx1=fst.ToLong();
+		long idx2=snd.ToLong();
+		if(idx1==idx2)return;
 		SetAt(GetNSetAt(GetAt(snd),fst), snd);
 	}
 

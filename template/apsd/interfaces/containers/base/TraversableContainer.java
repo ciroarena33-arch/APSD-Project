@@ -44,6 +44,7 @@ public interface TraversableContainer<T extends TraversableContainer<T, Data>, D
 	
   // IsEqual
 	default boolean IsEqual(TraversableContainer<?, Data> con) {
+		if(con==null) return false;
 		return this == con || Size().compareTo(con.Size())==0 && !TraverseForward(dat -> Multiplicity(dat).compareTo(con.Multiplicity(dat))!=0);
 	}
 	
